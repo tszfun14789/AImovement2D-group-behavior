@@ -3,3 +3,5 @@ Yellow spheres belongs to the same class and they would avoid colliding with eac
 Directions and speed of movement is updated continuously to achieve the caging effect and monitoring the relative position of the white sphere with each unique entity( yellow sphere)
 
 Walls and obstacles can be assigned in the script. Hence to achieve the effect of avoiding obstacles while approaching white sphere.
+
+One can create an interesting approach mechanic one combined with a finite state machine of an enemy/ companion. A simple yet powerful movement script.
