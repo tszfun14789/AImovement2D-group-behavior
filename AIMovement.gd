@@ -1,7 +1,7 @@
 extends Resource
 class_name AIMovement
 
-const UPDATE_DURATION = 0.0 #1.0 / 20
+const UPDATE_DURATION = 0.0 
 
 # Used to move to a position
 var seek := AIContext.new()
@@ -9,14 +9,14 @@ var seek := AIContext.new()
 var strafe := AIContext.new()
 # Used to maintain a consistent direction against minor changes
 var bias := AIContext.new()
-# Used to push away from nearby characters
+# Used to push away from nearby entities
 var separation := AIContext.new()
-# Used to avoid minor obstacles
+# Used to avoid obstacles
 var collision := AIContext.new()
 
 var weights := AIContext.new()
 
-# Must be a character, but can't assign due to cyclic dependancy
+# assign character
 var actor : CharacterBody2D
 
 func _init(_actor):
@@ -24,7 +24,7 @@ func _init(_actor):
 
 func get_pursue_velocity(target_position : Vector2, \
 		arrival_distance := 32.0, arrival_deadzone := 12.0) -> Vector2:
-	# Vector pointing from actor toward target
+	# Vector from actor toward target
 	var displacement = target_position - actor.global_position
 	var distance = displacement.length()
 	
@@ -74,7 +74,7 @@ func _get_strafe_context(displacement : Vector2) -> AIContext:
 func _get_separation_context(entities = [], exceptions = [], \
 		separation_distance := 32.0) -> AIContext:
 	separation.clear()
-	# Iterate through all neighbors and get Vector pointing away from them
+	# Iterate through all nearby entites and get Vector pointing away from them
 	var away_vector := Vector2()
 	var max_factor = 0.0
 	# Generate a vector pointing away from the crowd
@@ -92,7 +92,7 @@ func _get_separation_context(entities = [], exceptions = [], \
 			# Add in normalized vector modified by factor
 			away_vector += (displacement / distance) * factor
 	
-	# Once you have the away vector, use it to generate weights
+	# got the away vector, generate weights
 	if away_vector != Vector2.ZERO:
 		for i in separation.size():
 			var value = cos(away_vector.angle() - separation.get_angle(i))
